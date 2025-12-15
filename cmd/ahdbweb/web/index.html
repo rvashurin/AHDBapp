@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AHDB PoC</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="title">AHDB PoC</div>
+      <div class="subtitle">Item prices over time (line/box plot)</div>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <div class="row">
+          <label class="label" for="search">Item search</label>
+          <input id="search" class="input" type="text" placeholder="Start typing (e.g. Runecloth Bag)" autocomplete="off" />
+        </div>
+        <div id="results" class="results"></div>
+
+        <div class="grid">
+          <div class="row">
+            <label class="label" for="realm">Realm</label>
+            <select id="realm" class="input"></select>
+          </div>
+          <div class="row">
+            <label class="label" for="faction">Faction</label>
+            <select id="faction" class="input"></select>
+          </div>
+          <div class="row">
+            <label class="label" for="unit">Unit</label>
+            <select id="unit" class="input">
+              <option value="per_item" selected>Per item</option>
+              <option value="per_stack">Per stack</option>
+            </select>
+          </div>
+          <div class="row">
+            <label class="label" for="days">Days back</label>
+            <input id="days" class="input" type="number" min="0" max="3650" value="7" />
+          </div>
+          <div class="row">
+            <label class="label" for="maxPoints">Max points</label>
+            <input id="maxPoints" class="input" type="number" min="10" max="5000" value="400" />
+          </div>
+          <div class="row">
+            <label class="label" for="trimPct">Trim tails (each end)</label>
+            <select id="trimPct" class="input">
+              <option value="0" selected>0%</option>
+              <option value="5">5%</option>
+              <option value="10">10%</option>
+              <option value="15">15%</option>
+              <option value="20">20%</option>
+              <option value="25">25%</option>
+              <option value="30">30%</option>
+              <option value="35">35%</option>
+              <option value="40">40%</option>
+              <option value="45">45%</option>
+              <option value="50">50%</option>
+            </select>
+          </div>
+          <div class="row">
+            <label class="label" for="metric">Line metric</label>
+            <select id="metric" class="input">
+              <option value="mean" selected>Mean</option>
+              <option value="median">Median</option>
+            </select>
+          </div>
+          <div class="row checkbox">
+            <input id="showStd" type="checkbox" checked />
+            <label for="showStd">Box plot (quartiles)</label>
+          </div>
+          <div class="row">
+            <button id="refresh" class="button" type="button">Refresh</button>
+          </div>
+        </div>
+
+        <div class="selected">
+          <div>Selected item: <span id="selectedItem" class="mono">none</span></div>
+          <div class="status" id="status"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <canvas id="chart" width="1200" height="420"></canvas>
+        <div class="hint">Tip: widen the window for a more readable chart.</div>
+      </section>
+
+      <section class="panel">
+        <div class="tableTitle">Histogram (hover a box)</div>
+        <canvas id="hist" width="1200" height="220"></canvas>
+        <div class="hint" id="histHint">Enable box plot and hover a snapshot to see the price distribution.</div>
+      </section>
+
+      <section class="panel">
+        <div class="tableTitle">Snapshot stats</div>
+        <div class="tableWrap">
+          <table class="table" id="table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>N</th>
+                <th>Mean</th>
+                <th>Median</th>
+                <th>Stddev</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

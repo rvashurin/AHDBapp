@@ -24,6 +24,21 @@ You need:
   - On windows `go\bin\AHDBapp.exe < "c:\Program Files (x86)\World of Warcraft\_classic_era_\WTF\Account\YOURACCOUNT\SavedVariables\AuctionDB.lua"`
   - On unix/mac `~/go/bin/AHDBapp < ...path_to_.../SavedVariables/AuctionDB.lua`
 
+## PoC web app (graphs)
+
+This repo now also includes a small local web UI to graph item prices over time (mean/median + stddev per scan snapshot).
+
+Run it:
+- `MYSQL_PASSWORD=... go run ./cmd/ahdbweb`
+- open `http://127.0.0.1:8080` in your browser
+
+Optional env vars (same as the importer):
+- `MYSQL_USER` (defaults to `root`)
+- `MYSQL_CONNECTION_INFO` (defaults to `tcp(:3306)`)
+
+Optional flag:
+- `-addr 127.0.0.1:8080` (change listen address/port)
+
 ### old instructions
 You used to need/do
 - golang https://golang.org/dl/
